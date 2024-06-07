@@ -9,8 +9,7 @@ const app = express();
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        "318926159367-c6av2hoa1lblt8302iovu45gk93tucat.apps.googleusercontent.com",
+      clientID: "318926159367-c6av2hoa1lblt8302iovu45gk93tucat.apps.googleusercontent.com",
       clientSecret: "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",
       callbackURL: "https://timesgaze-oauth.vercel.app/auth/google/callback",
     },
@@ -54,12 +53,17 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    // Successful authentication, send user data and tokens.
-    res.json({
-      profile: req.user.profile,
-      accessToken: req.user.token,
-      refreshToken: req.user.tokenSecret,
-    });
+    // Extract tokens and code from user
+    const code = req.query.code;
+    const accessToken = req.user.token;
+    const refreshToken = req.user.tokenSecret;
+    const profile = req.user.profile;
+
+    // Create a custom URL to redirect back to your Flutter app
+    const redirectUrl = `timesgaze://callback?code=${code}&accessToken=${accessToken}&refreshToken=${refreshToken}&profile=${encodeURIComponent(JSON.stringify(profile))}`;
+
+    // Redirect to the custom URL scheme
+    res.redirect(redirectUrl);
   }
 );
 
