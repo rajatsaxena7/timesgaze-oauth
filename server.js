@@ -61,7 +61,7 @@ app.get(
 
     // Create a custom URL to redirect back to your Flutter app
     const redirectUrl = `timesgaze://callback?code=${code}&accessToken=${accessToken}&refreshToken=${refreshToken}&profile=${encodeURIComponent(JSON.stringify(profile))}`;
-
+console.log('Redirecting to:', redirectUrl);
     // Redirect to the custom URL scheme
     res.redirect(redirectUrl);
   }
