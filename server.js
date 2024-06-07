@@ -12,7 +12,7 @@ passport.use(
       clientID:
         "318926159367-c6av2hoa1lblt8302iovu45gk93tucat.apps.googleusercontent.com",
       clientSecret: "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",
-      callbackURL: "/auth/google/callback",
+      callbackURL: "https://timesgaze-oauth.vercel.app/auth/google/callback",
     },
     function (token, tokenSecret, profile, done) {
       // Save user profile and tokens here
